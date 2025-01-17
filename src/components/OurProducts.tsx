@@ -4,7 +4,8 @@ import { useProducts } from "@/context/ProductContext";
 import { Product } from "@/types/Product";
 
 export default function OurProducts() {
-  const products = useProducts() | [0...8];
+  const products = useProducts();
+  const limitedProducts = products.slice(0, 8);
   return (
     <div className="w-full border-b-2 py-16 flex flex-col justify-center bg-[#F4F5F7] px-4">
       <div className="flex flex-col gap-[32px] w-fit mx-auto">
@@ -16,7 +17,7 @@ export default function OurProducts() {
         {/* Cards */}
         <div className="flex gap-[15px] overflow-x-auto no-scrollbar flex-wrap justify-center w-full">
           {/* Cards for Products */}
-          {products.map((product: Product) => (
+          {limitedProducts.map((product: Product) => (
             <div
               className="bg-white group relative overflow-hidden w-[285px] md:w-[285px] lg:w-[285px]"
               key={product._id}
