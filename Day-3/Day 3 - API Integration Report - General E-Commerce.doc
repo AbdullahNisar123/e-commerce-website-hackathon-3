@@ -1,0 +1,37 @@
+Day 3 - API Integration Report - General E-Commerce
+
+
+API Integration Process
+
+1. Overview of the API Integration
+The API integration was intended to fetch product data from the Provided API and display it dynamically in the frontend. Key endpoints included "/products" for fetching product details. The integration made data synchronization between the API and the frontend components seamless.
+
+2. Step-by-Step Integration
+    Step 1: select API endpoints.
+    Step 2: Setting up environment variables for API keys and other sensitive information.
+    Step 3: Implementing TypeScript interfaces to define the shape of data.
+    Step 4: Writing API calls using fetch.
+    Step 5: Error handling with retries and fallbacks.
+    Step 6: Connecting data to frontend
+
+Add Changes Made to Schemas
+
+Changes Made to Schemas
+
+1. Changes to Sanity Schema
+    No modifications were performed on the sanity schema in regard to the API integration.
+
+Migration Steps and Tools Used
+
+1. Tools Used for Migration
+    Describe all tools used within the migration steps
+2. Migration
+    The migration utilized a given script to transfer as well as convert data when applicable. The Steps were:
+
+    Step 1: Run the script for migration based on the correct schema structure according to the specifications.
+    Step 2: Validate the output data to confirm successful transformation.
+    Step 3: Test the migrated data within the development environment.
+    Step 4: Deploy the migration script in the production environment.
+    Step 5: Verify the migration by comparing the old and new data sources.
+
+The script provided above made the migration much easier and reduced manual intervention, thereby minimizing errors.

@@ -1,11 +1,9 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { client } from "../sanity/lib/client"; // Adjust the path to your sanity client setup
+import { client } from "../sanity/lib/client";
 
-// Create a context with an empty array as default
 const ProductContext = createContext<any[]>([]);
 
-// Create a provider component
 export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
@@ -42,7 +40,6 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
-// Custom hook for accessing products
 export const useProducts = () => {
   return useContext(ProductContext);
 };
