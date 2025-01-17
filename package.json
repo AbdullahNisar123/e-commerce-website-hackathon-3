@@ -2,6 +2,7 @@
   "name": "e-commerce-website-hackathon-3",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -19,6 +20,7 @@
     "styled-components": "^6.1.14"
   },
   "devDependencies": {
+    "@iconify/react": "^5.2.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
