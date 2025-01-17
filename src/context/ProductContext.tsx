@@ -15,7 +15,7 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
     const fetchProducts = async () => {
       try {
         const res =
-          await client.fetch(`*[_type == "product"] | order(_createdAt asc) [0...8]{
+          await client.fetch(`*[_type == "product"] {
           title,
             description,
             "imageUrl": productImage.asset->url,
