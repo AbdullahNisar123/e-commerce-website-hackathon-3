@@ -2,6 +2,7 @@
 import { Icon } from "@iconify/react";
 import { useProducts } from "@/context/ProductContext";
 import { Product } from "@/types/Product";
+import Link from "next/link";
 
 export default function OurProducts() {
   const products = useProducts();
@@ -69,19 +70,21 @@ export default function OurProducts() {
 
               {/* Product Details */}
               <div className="w-fit pt-[16px] pb-[30px] pr-[20px] pl-[16px]">
-                <h2 className="text-[24px] font-semibold text-Gray1">
-                  {product.title}
-                </h2>
+              <Link key={product.slug} href={`/Shop/${product.slug}`}>
+                  <h2 className="text-[24px] font-semibold text-Gray1 z-20 relative">
+                    {product.title}
+                  </h2>
+                </Link>
                 <h4 className="text-[16px] font-medium text-Gray2">
                   {product.title}
                 </h4>
                 <div className="w-fit flex gap-[16px] items-center">
                   <p className="text-[20px] font-semibold text-Gray1">
-                   Rs {(product.discountedPrice).toFixed(3)}
+                    Rs {product.discountedPrice.toFixed(3)}
                   </p>
                   {product.price && (
                     <p className="text-[16px] font-normal text-Gray4 line-through">
-                     Rs {(product.price).toFixed(3)}
+                      Rs {product.price.toFixed(3)}
                     </p>
                   )}
                 </div>

@@ -1,10 +1,10 @@
 export interface Product {
     _id: string;
     title: string;
-    price?: number;
+    price: number;
     imageUrl: string;
     tags:string;
-    slug?: string; 
+    slug: string; 
     dicountPercentage: number;
     discountedPrice:number;
     isNew: boolean;
