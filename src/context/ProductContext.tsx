@@ -1,13 +1,14 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { client } from "../sanity/lib/client";
+import { Product } from "@/types/Product";
 
 const ProductContext = createContext<any[]>([]);
 
 export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [products, setProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -23,7 +24,8 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
             dicountPercentage,
             "discountedPrice": price - (price * dicountPercentage / 100),
             isNew,
-            "slug": slug.current
+            "slug": slug.current,
+            category
         }`);
         setProducts(res);
       } catch (error) {

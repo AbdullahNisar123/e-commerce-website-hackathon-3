@@ -51,5 +51,11 @@ export const product = defineType({
       title: "Slug",
       options: { source: "title", maxLength: 200 },
     },
+    {
+      name: 'category',
+      type: 'reference',
+      title: 'Category',
+      to: [{ type: 'category' }],
+    },
   ],
 });

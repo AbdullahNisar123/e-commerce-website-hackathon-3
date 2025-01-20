@@ -3,12 +3,16 @@ import { Icon } from "@iconify/react";
 import { useProducts } from "@/context/ProductContext";
 import { Product } from "@/types/Product";
 import Link from "next/link";
+import { useSearch } from "@/context/SearchContext";
 
 export default function OurProducts() {
   const products = useProducts();
-  const limitedProducts = products.slice(0, 8);
+  const { filteredProducts } = useSearch(); 
+  const limitedProducts = filteredProducts.slice(0, 8);
+  console.log("products from seacth",filteredProducts)
   return (
     <div className="w-full border-b-2 py-16 flex flex-col justify-center bg-[#F4F5F7] px-4">
+
       <div className="flex flex-col gap-[32px] w-fit mx-auto">
         {/* Header */}
         <div className="text-center">
@@ -70,7 +74,7 @@ export default function OurProducts() {
 
               {/* Product Details */}
               <div className="w-fit pt-[16px] pb-[30px] pr-[20px] pl-[16px]">
-              <Link key={product.slug} href={`/Shop/${product.slug}`}>
+                <Link key={product.slug} href={`/Shop/${product.slug}`}>
                   <h2 className="text-[24px] font-semibold text-Gray1 z-20 relative">
                     {product.title}
                   </h2>

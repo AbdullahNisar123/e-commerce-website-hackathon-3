@@ -182,11 +182,8 @@ export default function ProductBody({ params }: ProductBodyProps){
                   5 Customer Review
                 </p>
               </div>
-              <p className="text-[13px]">
-                Setting the bar as one of the loudest speakers in its class, the
-                Kilburn is a compact, stout-hearted hero with a well-balanced
-                audio which boasts a clear midrange and extended highs for a
-                sound.
+              <p className="text-[13px] line-clamp-2">
+                {product.description}
               </p>
             </div>
             <div className="flex flex-col gap-[32px]">
@@ -262,7 +259,7 @@ export default function ProductBody({ params }: ProductBodyProps){
                   <p>Tags</p>
                   <p>:</p>
                 </div>
-                <p>Sofa, Chair, Home, Shop</p>
+                <p>{product.tags.join(', ')}</p>
               </div>
               <div className="flex text-[16px] text-[#9F9F9F] gap-3 items-center">
                 <div className="flex gap-[44px] items-center">

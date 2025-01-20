@@ -5,10 +5,19 @@ import { Icon } from "@iconify/react";
 import Link from "next/link";
 import Image from "next/image";
 import ShoppingCard from "./ShoppingCard";
+import { useSearch } from "@/context/SearchContext";
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+  const { searchQuery, setSearchQuery } = useSearch();
+
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("Search Query:", e.target.value);
+    setSearchQuery(e.target.value); // Update search query in context
+  };
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -18,6 +27,9 @@ export default function NavBar() {
     setIsCartOpen((prev) => !prev);
   };
 
+  const toggleSearch = () => {
+    setShowSearch(!showSearch);
+  };
   const closeNav = () => {
     setIsOpen(false);
   };
@@ -221,9 +233,26 @@ export default function NavBar() {
               className="w-7 h-7 text-black"
             />
           </Link>
-          <Link href="#">
-            <Icon icon="si:search-line" className="w-7 h-7 text-black" />
-          </Link>
+          <div
+            className="relative flex items-center
+          "
+          >
+            {/* Search Input */}
+            {showSearch && (
+              <input
+                type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={handleChange}
+                className=" top-0 left-0 mt-2 p-2 border rounded-md shadow-sm "
+              />
+            )}
+
+            {/* Search Icon */}
+            <button onClick={toggleSearch} className="focus:outline-none h-fit">
+              <Icon icon="si:search-line" className="w-7 h-7 text-black" />
+            </button>
+          </div>
           <Link href="#">
             <Icon icon="solar:heart-linear" className="w-7 h-7 text-black" />
           </Link>
