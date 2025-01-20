@@ -3,12 +3,7 @@ import React from "react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
 import Link from "next/link";
-import { useCart } from "@/context/CartContext";
-import { client } from "@/sanity/lib/client";
-import { urlFor } from "@/sanity/lib/image";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useWishlist } from "@/context/WishlistContext";
 import { Product } from "@/types/Product";
 import { useProducts } from "@/context/ProductContext";
 
@@ -18,84 +13,16 @@ interface ProductBodyProps {
     slug: string;
   };
 }
-// const ProductBody: React.FC<ProductDetailProps> = ({ params }) => {
-// const ProductBody = ()=>{
+
 export default function ProductBody({ params }: ProductBodyProps){
-  // const { cart, addToCart, currentProduct } = useCart();
   const router = useRouter();
   const products = useProducts();
   const limitedProducts = products.slice(0, 8);
   const product = products.find((p) => p.slug === params?.slug);
-  
-
   if (!product) {
     router.push("/Shop");
     return null;
   }
-
-  // // Log params and products for debugging
-  // console.log("Slug from URL:", params?.slug);
-  // console.log("Products from context:", products);
-  
-  // const [data, setData] = useState<Product[]>([]);
-  // const [quantity, setQuantity] = useState(1);
-  // const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     try {
-  //       const res =
-  //         await client.fetch(`*[_type == "product"] | order(_createdAt asc) [0...4]{
-  //             id,
-  //             title,
-  //             subtitle,
-  //             currentprice,
-  //             price,
-  //             image,
-  //             discount,
-  //             new,
-  //             stock,
-  //             "slug": slug.current
-  //           }`);
-  //       setData(res);
-  //     } catch (error) {
-  //       console.error("Error fetching products:", error);
-  //     }
-  //   };
-
-  //   fetchProducts();
-  // }, []);
-  // const getAvailableStock = (productId: string, initialStock: number) => {
-  //   const cartItem = cart.find((item) => item.id === productId);
-  //   return initialStock - (cartItem?.quantity || 0);
-  // };
-
-  
-
-  // // incrementing quantity
-  // const incrementQuantity = () => {
-  //   if (currentProduct.stock && quantity < currentProduct.stock) {
-  //     setQuantity((prevQuantity) => prevQuantity + 1);
-  //   }
-  // };
-
-  // //decrementing quantity
-  // const decrementQuantity = () => {
-  //   if (quantity > 1) {
-  //     setQuantity((prevQuantity) => prevQuantity - 1);
-  //   }
-  // };
-
-  // // adding the product with the selected quantity to the cart
-  // const handleAddToCart = () => {
-  //   addToCart({
-  //     ...currentProduct,
-  //     quantity,
-  //   });
-  // };
-  // const availableStock = getAvailableStock(
-  //   currentProduct.id,
-  //   currentProduct.stock
-  // );
 
   return (
     <div>

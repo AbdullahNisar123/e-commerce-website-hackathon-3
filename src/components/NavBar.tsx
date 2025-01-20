@@ -17,7 +17,10 @@ export default function NavBar() {
     console.log("Search Query:", e.target.value);
     setSearchQuery(e.target.value); // Update search query in context
   };
-
+  
+  const toggleSearch = () => {
+    setShowSearch(!showSearch);
+  };
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -26,9 +29,6 @@ export default function NavBar() {
     setIsCartOpen((prev) => !prev);
   };
 
-  const toggleSearch = () => {
-    setShowSearch(!showSearch);
-  };
   const closeNav = () => {
     setIsOpen(false);
   };
