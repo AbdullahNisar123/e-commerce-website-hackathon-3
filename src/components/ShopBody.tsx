@@ -1,12 +1,12 @@
 "use client";
 
-import { useProducts } from "@/context/ProductContext";
+import { useSearch } from "@/context/SearchContext";
 import { Product } from "@/types/Product";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import Link from "next/link";
 
 export default function ShopBody() {
-  const products = useProducts();
-
+ const { filteredProducts } = useSearch(); 
   return (
     <div>
       <div
@@ -53,7 +53,7 @@ export default function ShopBody() {
         {/* Cards */}
         <div className="flex gap-[15px] overflow-x-auto no-scrollbar flex-wrap justify-center w-full">
           {/* Cards for Products */}
-          {products.map((product: Product) => (
+          {filteredProducts.map((product: Product) => (
             <div
               className="bg-white group relative overflow-hidden w-[285px] md:w-[285px] lg:w-[285px] "
               key={product._id}
@@ -105,9 +105,11 @@ export default function ShopBody() {
 
               {/* Product Details */}
               <div className=" pt-[16px] pb-[30px] pr-[20px] pl-[16px] bg-[#F4F5F7]">
-                <h2 className="text-[24px] font-semibold text-Gray1">
-                  {product.title}
-                </h2>
+              <Link key={product.slug} href={`/Shop/${product.slug}`}>
+                  <h2 className="text-[24px] font-semibold text-Gray1 z-20 relative">
+                    {product.title}
+                  </h2>
+                </Link>
                 <h4 className="text-[16px] font-medium text-Gray2">
                   {product.title}
                 </h4>

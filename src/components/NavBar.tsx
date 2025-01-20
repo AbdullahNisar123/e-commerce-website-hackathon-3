@@ -13,7 +13,6 @@ export default function NavBar() {
   const [showSearch, setShowSearch] = useState(false);
   const { searchQuery, setSearchQuery } = useSearch();
 
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log("Search Query:", e.target.value);
     setSearchQuery(e.target.value); // Update search query in context
@@ -137,6 +136,8 @@ export default function NavBar() {
                     <input
                       type="text"
                       className="w-full bg-transparent"
+                      value={searchQuery}
+                      onChange={handleChange}
                       placeholder="Search"
                     />
                   </label>
@@ -234,11 +235,12 @@ export default function NavBar() {
             />
           </Link>
           <div
-            className="relative flex items-center
+            className="relative flex items-center z-10
           "
           >
             {/* Search Input */}
             {showSearch && (
+              
               <input
                 type="text"
                 placeholder="Search..."

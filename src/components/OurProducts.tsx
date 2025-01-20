@@ -4,10 +4,12 @@ import { useProducts } from "@/context/ProductContext";
 import { Product } from "@/types/Product";
 import Link from "next/link";
 import { useSearch } from "@/context/SearchContext";
+import { useCart } from "@/context/CartContext";
 
 export default function OurProducts() {
   const products = useProducts();
   const { filteredProducts } = useSearch(); 
+  const { addToCart } = useCart();
   const limitedProducts = filteredProducts.slice(0, 8);
   console.log("products from seacth",filteredProducts)
   return (
@@ -54,7 +56,9 @@ export default function OurProducts() {
                 </div>
                 {/* Add to Cart Button */}
                 <div className="h-full absolute bottom-0 w-full flex flex-col gap-[24px] items-center justify-center bg-opacity-0 opacity-0 group-hover:bg-opacity-70 group-hover:opacity-100 bg-Gray1 transition-opacity duration-300">
-                  <button className="text-[16px] font-semibold text-primary bg-white px-[52px] py-[12px]">
+                  <button className="text-[16px] font-semibold text-primary bg-white px-[52px] py-[12px]"
+                  onClick={() => addToCart(product)}
+                  >
                     Add to Cart
                   </button>
                   <div className="flex gap-4 text-white text-sm mt-2">
@@ -99,9 +103,12 @@ export default function OurProducts() {
 
         {/* Show More Button */}
         <div className="w-full text-center mt-5">
-          <button className="text-[16px] font-semibold bg-white py-[12px] px-[72px] text-primary border border-primary">
+        <Link
+            href="/Shop"
+            className="text-[16px] font-semibold bg-white py-[12px] px-[72px] text-primary border border-primary"
+          >
             Show More
-          </button>
+          </Link>
         </div>
       </div>
     </div>
