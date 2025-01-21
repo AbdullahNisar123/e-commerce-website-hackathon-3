@@ -1,0 +1,10 @@
+Test Case ID,Description,Test Steps,Expected Result,Actual Result,Status,Severity,Remarks
+TC001,Fetch all products,Load the homepage,All products are displayed correctly,Passed,Low,Works as expected,
+TC002,API failure,"Disconnect network, reload homepage","Display error message ""Failed to load products""",Passed,High,Error handling works,
+TC003,Search valid product,"Enter ""Laptop"" in search bar","Display only products matching ""Laptop""",Passed,Low,Works as expected,
+TC004,Search invalid product,"Enter ""Nonexistent"" in search bar","Show ""No products found""",Passed,Medium,Error message displayed,
+TC005,Valid product detail page,Navigate to a product detail page,Display correct product details,Passed,Low,Works as expected,
+TC006,Invalid product ID,Enter invalid product ID in URL,"Show ""Product not found"" error",Passed,Medium,Error message displayed,
+TC007,Add product to cart,"Click ""Add to Cart"" on a product",Product added to cart successfully,Passed,Low,Works as expected,
+TC008,Remove product from cart,"Click ""Remove"" on a cart item",Product removed from cart,Passed,Low,Works as expected,
+TC009,Cart total updates correctly,Add multiple items to cart,Subtotal and total items update correctly,Passed,Low,Works as expected,
