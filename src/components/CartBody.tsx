@@ -1,7 +1,6 @@
 "use client";
 import { useCart } from "@/context/CartContext";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import Image from "next/image";
 import Link from "next/link";
 
 
