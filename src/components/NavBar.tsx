@@ -6,13 +6,14 @@ import Link from "next/link";
 import Image from "next/image";
 import ShoppingCard from "./ShoppingCard";
 import { useSearch } from "@/context/SearchContext";
+import { useCart } from "@/context/CartContext";
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const { searchQuery, setSearchQuery } = useSearch();
-
+  const {totalItems } = useCart();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log("Search Query:", e.target.value);
     setSearchQuery(e.target.value); // Update search query in context
@@ -263,6 +264,11 @@ export default function NavBar() {
               icon="streamline:shopping-cart-2"
               className="w-7 h-7 text-black"
             />
+            {totalItems > 0 && (
+              <span className="bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center absolute top-[18px] right-[92px] text-[14px] z-10">
+                {totalItems}
+              </span>
+            )}
           </Link>
         </div>
       </header>
