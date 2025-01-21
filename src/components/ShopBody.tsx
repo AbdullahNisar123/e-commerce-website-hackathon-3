@@ -1,12 +1,14 @@
 "use client";
 
+import { useCart } from "@/context/CartContext";
 import { useSearch } from "@/context/SearchContext";
 import { Product } from "@/types/Product";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Link from "next/link";
 
 export default function ShopBody() {
- const { filteredProducts } = useSearch(); 
+  const { filteredProducts } = useSearch();
+  const { addToCart } = useCart();
   return (
     <div>
       <div
@@ -85,7 +87,10 @@ export default function ShopBody() {
                 </div>
                 {/* Add to Cart Button */}
                 <div className="h-full absolute bottom-0 w-full flex flex-col gap-[24px] items-center justify-center bg-opacity-0 opacity-0 group-hover:bg-opacity-70 group-hover:opacity-100 bg-Gray1 transition-opacity duration-300">
-                  <button className="text-[16px] font-semibold text-primary bg-white px-[52px] py-[12px]">
+                  <button
+                    className="text-[16px] font-semibold text-primary bg-white px-[52px] py-[12px]"
+                    onClick={() => addToCart(product)}
+                  >
                     Add to Cart
                   </button>
                   <div className="flex gap-4 text-white text-sm mt-2">
@@ -105,7 +110,7 @@ export default function ShopBody() {
 
               {/* Product Details */}
               <div className=" pt-[16px] pb-[30px] pr-[20px] pl-[16px] bg-[#F4F5F7]">
-              <Link key={product.slug} href={`/Shop/${product.slug}`}>
+                <Link key={product.slug} href={`/Shop/${product.slug}`}>
                   <h2 className="text-[24px] font-semibold text-Gray1 z-20 relative">
                     {product.title}
                   </h2>
@@ -115,11 +120,11 @@ export default function ShopBody() {
                 </h4>
                 <div className="w-fit flex gap-[16px] items-center">
                   <p className="text-[20px] font-semibold text-Gray1">
-                  Rs {(product.discountedPrice).toFixed(3)}
+                    Rs {product.discountedPrice.toFixed(3)}
                   </p>
                   {product.price && (
                     <p className="text-[16px] font-normal text-Gray4 line-through">
-                      Rs {(product.price).toFixed(3)}
+                      Rs {product.price.toFixed(3)}
                     </p>
                   )}
                 </div>
