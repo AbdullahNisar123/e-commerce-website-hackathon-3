@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { client } from "../sanity/lib/client";
 import { Product } from "@/types/Product";
 
-const ProductContext = createContext<any[]>([]);
+const ProductContext = createContext<Product[]>([]);
 
 export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
   children,

@@ -1,7 +1,5 @@
 import { useCart } from "@/context/CartContext";
-import { urlFor } from "@/sanity/lib/image";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import Image from "next/image";
 import Link from "next/link";
 
 type ShoppingCartProps = {
@@ -9,7 +7,7 @@ type ShoppingCartProps = {
 };
 
 export default function ShoppingCart({ closeCart }: ShoppingCartProps) {
-  const { cartItems, removeFromCart, totalPrice, clearCart } = useCart();
+  const { cartItems, removeFromCart, totalPrice } = useCart();
 
 
   return (

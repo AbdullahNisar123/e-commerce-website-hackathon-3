@@ -1,13 +1,12 @@
 "use client";
 import { Icon } from "@iconify/react";
-import { useProducts } from "@/context/ProductContext";
 import { Product } from "@/types/Product";
 import Link from "next/link";
 import { useSearch } from "@/context/SearchContext";
 import { useCart } from "@/context/CartContext";
 
 export default function OurProducts() {
-  const products = useProducts();
+
   const { filteredProducts } = useSearch(); 
   const { addToCart } = useCart();
   const limitedProducts = filteredProducts.slice(0, 8);

@@ -3,7 +3,7 @@ export interface Product {
     title: string;
     price: number;
     imageUrl: string;
-    tags:string;
+    tags:string[];
     slug: string; 
     dicountPercentage: number;
     discountedPrice:number;
