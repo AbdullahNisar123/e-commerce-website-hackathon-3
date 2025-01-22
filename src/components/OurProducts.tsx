@@ -4,11 +4,13 @@ import { Product } from "@/types/Product";
 import Link from "next/link";
 import { useSearch } from "@/context/SearchContext";
 import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext";
 
 export default function OurProducts() {
 
   const { filteredProducts } = useSearch(); 
   const { addToCart } = useCart();
+  const {addToWishlist,removeFromWishlist,isInWishlist} = useWishlist();
   const limitedProducts = filteredProducts.slice(0, 8);
   console.log("products from seacth",filteredProducts)
   return (
@@ -68,8 +70,27 @@ export default function OurProducts() {
                       <Icon icon="fluent:arrow-swap-28-regular" className="" />
                       Compare
                     </button>
-                    <button className="flex items-center gap-1 text-[16px] font-semibold">
-                      <Icon icon="mingcute:heart-line" className="" /> Like
+                    <button className="flex items-center gap-1 text-[16px] font-semibold"
+                    onClick={() => {
+                      if (isInWishlist(product._id)){
+                        removeFromWishlist(product._id);
+                      } else {
+                        addToWishlist(product)
+                      }
+                    }}
+                      >
+                     <Icon
+                          icon={
+                            isInWishlist(product._id)
+                              ? "solar:heart-bold"
+                              : "solar:heart-linear"
+                          }
+                          className={
+                            isInWishlist(product._id)
+                              ? "text-red-500 text-[20px]"
+                              : "text-white text-[20px]"
+                          }
+                        /> Like
                     </button>
                   </div>
                 </div>

@@ -2,13 +2,16 @@
 
 import { useCart } from "@/context/CartContext";
 import { useSearch } from "@/context/SearchContext";
+import { useWishlist } from "@/context/WishlistContext";
 import { Product } from "@/types/Product";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Link from "next/link";
 
 export default function ShopBody() {
-  const { filteredProducts } = useSearch();
+  const { wishlist, removeFromWishlist, isInWishlist, addToWishlist } =
+    useWishlist();
   const { addToCart } = useCart();
+  const { filteredProducts } = useSearch();
   return (
     <div>
       <div
@@ -101,8 +104,27 @@ export default function ShopBody() {
                       <Icon icon="fluent:arrow-swap-28-regular" className="" />{" "}
                       Compare
                     </button>
-                    <button className="flex items-center gap-1 text-[16px] font-semibold">
-                      <Icon icon="mingcute:heart-line" className="" /> Like
+                    <button className="flex items-center gap-1 text-[16px] font-semibold"
+                    onClick={() => {
+                      if (isInWishlist(product._id)){
+                        removeFromWishlist(product._id);
+                      } else {
+                        addToWishlist(product)
+                      }
+                    }}
+                      >
+                     <Icon
+                          icon={
+                            isInWishlist(product._id)
+                              ? "solar:heart-bold"
+                              : "solar:heart-linear"
+                          }
+                          className={
+                            isInWishlist(product._id)
+                              ? "text-red-500 text-[20px]"
+                              : "text-white text-[20px]"
+                          }
+                        /> Like
                     </button>
                   </div>
                 </div>

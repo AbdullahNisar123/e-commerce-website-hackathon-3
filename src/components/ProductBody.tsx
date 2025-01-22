@@ -6,6 +6,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Product } from "@/types/Product";
 import { useProducts } from "@/context/ProductContext";
+import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext";
 
 
 interface ProductBodyProps {
@@ -15,6 +17,8 @@ interface ProductBodyProps {
 }
 
 export default function ProductBody({ params }: ProductBodyProps){
+  const { wishlist, removeFromWishlist, isInWishlist, addToWishlist } = useWishlist();
+    const { addToCart} = useCart();
   const router = useRouter();
   const products = useProducts();
   const limitedProducts = products.slice(0, 8);
@@ -276,7 +280,8 @@ export default function ProductBody({ params }: ProductBodyProps){
                 </div>
                 {/* Add to Cart Button */}
                 <div className="h-full absolute bottom-0 w-full flex flex-col gap-[24px] items-center justify-center bg-opacity-0 opacity-0 group-hover:bg-opacity-70 group-hover:opacity-100 bg-Gray1 transition-opacity duration-300">
-                  <button className="text-[16px] font-semibold text-primary bg-white px-[52px] py-[12px]">
+                  <button className="text-[16px] font-semibold text-primary bg-white px-[52px] py-[12px]"
+                  onClick={() => addToCart(product)}>
                     Add to Cart
                   </button>
                   <div className="flex gap-4 text-white text-sm mt-2">
@@ -287,8 +292,27 @@ export default function ProductBody({ params }: ProductBodyProps){
                       <Icon icon="fluent:arrow-swap-28-regular" className="" />
                       Compare
                     </button>
-                    <button className="flex items-center gap-1 text-[16px] font-semibold">
-                      <Icon icon="mingcute:heart-line" className="" /> Like
+                    <button className="flex items-center gap-1 text-[16px] font-semibold"
+                    onClick={() => {
+                      if (isInWishlist(product._id)){
+                        removeFromWishlist(product._id);
+                      } else {
+                        addToWishlist(product)
+                      }
+                    }}
+                      >
+                     <Icon
+                          icon={
+                            isInWishlist(product._id)
+                              ? "solar:heart-bold"
+                              : "solar:heart-linear"
+                          }
+                          className={
+                            isInWishlist(product._id)
+                              ? "text-red-500 text-[20px]"
+                              : "text-white text-[20px]"
+                          }
+                        /> Like
                     </button>
                   </div>
                 </div>

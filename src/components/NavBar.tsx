@@ -7,12 +7,14 @@ import Image from "next/image";
 import ShoppingCard from "./ShoppingCard";
 import { useSearch } from "@/context/SearchContext";
 import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext";
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const { searchQuery, setSearchQuery } = useSearch();
+  const { wishlist } = useWishlist();
   const {totalItems } = useCart();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log("Search Query:", e.target.value);
@@ -256,8 +258,14 @@ export default function NavBar() {
               <Icon icon="si:search-line" className="w-7 h-7 text-black" />
             </button>
           </div>
-          <Link href="#">
+          <Link href="/WishList">
             <Icon icon="solar:heart-linear" className="w-7 h-7 text-black" />
+            {wishlist.length > 0 && (
+              <span className="bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center absolute top-[18px] right-[165px] text-[14px] z-10">
+                {wishlist.length}
+              </span>
+              
+            )}
           </Link>
           <Link href="#" onClick={toggleCart}>
             <Icon

@@ -7,6 +7,7 @@ import { CartProvider } from "@/context/CartContext";
 import { ProductProvider } from "@/context/ProductContext";
 import { SearchProvider } from "@/context/SearchContext";
 import { ToastContainer } from "react-toastify";
+import {WishlistProvider} from "@/context/WishlistContext"
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -35,12 +36,14 @@ export default function RootLayout({
       >
         <ProductProvider>
           <SearchProvider>
+            <WishlistProvider>
             <CartProvider>
                 <ToastContainer />
                 <NavBar />
                 {children}
                 <Footer />
             </CartProvider>
+            </WishlistProvider>
           </SearchProvider>
         </ProductProvider>
       </body>
