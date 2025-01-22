@@ -8,7 +8,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import Link from "next/link";
 
 export default function ShopBody() {
-  const { wishlist, removeFromWishlist, isInWishlist, addToWishlist } =
+  const { removeFromWishlist, isInWishlist, addToWishlist } =
     useWishlist();
   const { addToCart } = useCart();
   const { filteredProducts } = useSearch();

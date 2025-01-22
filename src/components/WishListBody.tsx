@@ -1,6 +1,5 @@
 "use client";
 import { useCart } from "@/context/CartContext";
-import { urlFor } from "@/sanity/lib/image";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Link from "next/link";
 import { useWishlist } from "@/context/WishlistContext";

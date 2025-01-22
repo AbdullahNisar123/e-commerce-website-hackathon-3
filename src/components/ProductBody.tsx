@@ -17,7 +17,7 @@ interface ProductBodyProps {
 }
 
 export default function ProductBody({ params }: ProductBodyProps){
-  const { wishlist, removeFromWishlist, isInWishlist, addToWishlist } = useWishlist();
+  const { removeFromWishlist, isInWishlist, addToWishlist } = useWishlist();
     const { addToCart} = useCart();
   const router = useRouter();
   const products = useProducts();
