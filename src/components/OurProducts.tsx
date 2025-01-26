@@ -5,16 +5,18 @@ import Link from "next/link";
 import { useSearch } from "@/context/SearchContext";
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
+import { useComparison } from "@/context/ComparisonContext";
 
 export default function OurProducts() {
 
   const { filteredProducts } = useSearch(); 
+  const { addToComparison } = useComparison();
   const { addToCart } = useCart();
   const {addToWishlist,removeFromWishlist,isInWishlist} = useWishlist();
   const limitedProducts = filteredProducts.slice(0, 8);
   console.log("products from seacth",filteredProducts)
   return (
-    <div className="w-full border-b-2 py-16 flex flex-col justify-center bg-[#F4F5F7] px-4">
+    <div className="w-full border-b-2 py-16 flex flex-col justify-center bg-[#F4F5F7] px-4" id="Shop">
 
       <div className="flex flex-col gap-[32px] w-fit mx-auto">
         {/* Header */}
@@ -66,7 +68,8 @@ export default function OurProducts() {
                     <button className="flex items-center gap-1 text-[16px] font-semibold">
                       <Icon icon="gridicons:share" className="" /> Share
                     </button>
-                    <button className="flex items-center gap-1 text-[16px] font-semibold">
+                    <button className="flex items-center gap-1 text-[16px] font-semibold"
+                    onClick={() => addToComparison(product)}>
                       <Icon icon="fluent:arrow-swap-28-regular" className="" />
                       Compare
                     </button>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCart } from "@/context/CartContext";
+import { useComparison } from "@/context/ComparisonContext";
 import { useSearch } from "@/context/SearchContext";
 import { useWishlist } from "@/context/WishlistContext";
 import { Product } from "@/types/Product";
@@ -8,9 +9,9 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import Link from "next/link";
 
 export default function ShopBody() {
-  const { removeFromWishlist, isInWishlist, addToWishlist } =
-    useWishlist();
+  const { removeFromWishlist, isInWishlist, addToWishlist } = useWishlist();
   const { addToCart } = useCart();
+  const { addToComparison } = useComparison();
   const { filteredProducts } = useSearch();
   return (
     <div>
@@ -100,31 +101,36 @@ export default function ShopBody() {
                     <button className="flex items-center gap-1 text-[16px] font-semibold">
                       <Icon icon="gridicons:share" className="" /> Share
                     </button>
-                    <button className="flex items-center gap-1 text-[16px] font-semibold">
-                      <Icon icon="fluent:arrow-swap-28-regular" className="" />{" "}
+                    <button
+                      className="flex items-center gap-1 text-[16px] font-semibold"
+                      onClick={() => addToComparison(product)}
+                    >
+                      <Icon icon="fluent:arrow-swap-28-regular" className="" />
                       Compare
                     </button>
-                    <button className="flex items-center gap-1 text-[16px] font-semibold"
-                    onClick={() => {
-                      if (isInWishlist(product._id)){
-                        removeFromWishlist(product._id);
-                      } else {
-                        addToWishlist(product)
-                      }
-                    }}
-                      >
-                     <Icon
-                          icon={
-                            isInWishlist(product._id)
-                              ? "solar:heart-bold"
-                              : "solar:heart-linear"
-                          }
-                          className={
-                            isInWishlist(product._id)
-                              ? "text-red-500 text-[20px]"
-                              : "text-white text-[20px]"
-                          }
-                        /> Like
+                    <button
+                      className="flex items-center gap-1 text-[16px] font-semibold"
+                      onClick={() => {
+                        if (isInWishlist(product._id)) {
+                          removeFromWishlist(product._id);
+                        } else {
+                          addToWishlist(product);
+                        }
+                      }}
+                    >
+                      <Icon
+                        icon={
+                          isInWishlist(product._id)
+                            ? "solar:heart-bold"
+                            : "solar:heart-linear"
+                        }
+                        className={
+                          isInWishlist(product._id)
+                            ? "text-red-500 text-[20px]"
+                            : "text-white text-[20px]"
+                        }
+                      />{" "}
+                      Like
                     </button>
                   </div>
                 </div>

@@ -8,6 +8,7 @@ import { Product } from "@/types/Product";
 import { useProducts } from "@/context/ProductContext";
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
+import { useComparison } from "@/context/ComparisonContext";
 
 
 interface ProductBodyProps {
@@ -18,6 +19,7 @@ interface ProductBodyProps {
 
 export default function ProductBody({ params }: ProductBodyProps){
   const { removeFromWishlist, isInWishlist, addToWishlist } = useWishlist();
+    const { addToComparison } = useComparison();
     const { addToCart} = useCart();
   const router = useRouter();
   const products = useProducts();
@@ -288,7 +290,8 @@ export default function ProductBody({ params }: ProductBodyProps){
                     <button className="flex items-center gap-1 text-[16px] font-semibold">
                       <Icon icon="gridicons:share" className="" /> Share
                     </button>
-                    <button className="flex items-center gap-1 text-[16px] font-semibold">
+                    <button className="flex items-center gap-1 text-[16px] font-semibold"
+                    onClick={() => addToComparison(product)}>
                       <Icon icon="fluent:arrow-swap-28-regular" className="" />
                       Compare
                     </button>

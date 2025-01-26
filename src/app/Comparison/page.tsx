@@ -1,3 +1,4 @@
+"use client"
 import ComparisonBody from "@/components/ComparisonBody";
 import Feature from "@/components/Feature";
 import PagesHeader from "@/components/PagesHeader";
