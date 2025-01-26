@@ -1,3 +1,4 @@
+import Link from "next/link";
 
 export default function Hero (){
     return(
@@ -12,9 +13,9 @@ export default function Hero (){
                     <h2 className="text-primary text-[41px] md:text-[52px] font-bold leading-[50px] md:leading-[65px] mb-[17px]">Discover Our <br />New Collection</h2>
                     <p className="font-medium md:text-[18px] text-[11px]  text-[#333333] leading-[16px] md:leading-[24px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut <br /> elit tellus, luctus nec ullamcorper mattis.</p>
                 </div>
-                <div className="bg-primary px-[72px] py-[25px] w-fit">
+                <Link href="#Shop" className="bg-primary px-[72px] py-[25px] w-fit">
                     <p className="text-white font-bold text-[16px]">BUY NOW</p>
-                </div>
+                </Link>
             </div>
         </div>
     )
