@@ -10,7 +10,5 @@ export interface Product {
   isNew: boolean;
   description: string;
   category: string;
-  dimensions?: string;
-  rating?: number;
   stock?: boolean;
 }

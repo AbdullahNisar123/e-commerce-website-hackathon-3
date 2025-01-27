@@ -45,19 +45,26 @@ export default function ComparisonBody() {
             </Link>
           </div>
           {comparisonList.map((product: Product) => (
-            <div className="w-[25%] flex flex-col gap-1  items-center group" key={product._id}>
-              <div className={` w-[280px] h-[177px] flex justify-center items-center bg-[#F9F1E7] rounded-[10px] bg-contain bg-no-repeat bg-center group-hover:scale-105 transition-transform duration-300`}
-              style={{
-                backgroundImage: `url(${product.imageUrl})`,
-              }}>
-                <button className="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center relative bottom-[74px] left-[126px] opacity-0 group-hover:opacity-100"
-                onClick={() => removeFromComparison(product._id)}>
+            <div
+              className="w-[25%] flex flex-col gap-1  items-center group"
+              key={product._id}
+            >
+              <div
+                className={` w-[280px] h-[177px] flex justify-center items-center bg-[#F9F1E7] rounded-[10px] bg-contain bg-no-repeat bg-center group-hover:scale-105 transition-transform duration-300`}
+                style={{
+                  backgroundImage: `url(${product.imageUrl})`,
+                }}
+              >
+                <button
+                  className="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center relative bottom-[74px] left-[126px] opacity-0 group-hover:opacity-100"
+                  onClick={() => removeFromComparison(product._id)}
+                >
                   <Icon icon="iconoir:cancel" />
                 </button>
               </div>
               <div className="">
                 <h3 className="font-medium text-[24px]">{product.title}a</h3>
-                <p className="text-[18px]">{product.price}</p>
+                <p className="text-[18px]">Rs. {(product.price).toFixed(3)}</p>
                 <div className="flex items-center gap-2">
                   <p className="text-[18px]">4.7</p>
                   <div className="text-[#FFC700] flex">
@@ -143,7 +150,7 @@ export default function ComparisonBody() {
                     key={index}
                     className="w-1/4 px-4 py-2 border-r border-r-[#E8E8E8]"
                   >
-                    Rs. {product.price}
+                    Rs. {(product.price).toFixed(3)}
                   </td>
                 ))}
                 {comparisonList.length < 2 && (
@@ -162,7 +169,7 @@ export default function ComparisonBody() {
                     key={index}
                     className="w-1/4 px-4 py-2 border-r border-r-[#E8E8E8]"
                   >
-                    Rs. {product.price}
+                    Rs. {(product.discountedPrice).toFixed(3)}
                   </td>
                 ))}
                 {comparisonList.length < 3 && (
@@ -178,7 +185,7 @@ export default function ComparisonBody() {
                     key={index}
                     className="w-1/4 px-4 py-2 border-r border-r-[#E8E8E8]"
                   >
-                    {product.title || "N/A"}
+                    N/A
                   </td>
                 ))}
                 {comparisonList.length < 3 && (
@@ -194,7 +201,7 @@ export default function ComparisonBody() {
                     key={index}
                     className="w-1/4 px-4 py-2 border-r border-r-[#E8E8E8]"
                   >
-                    {product.title || "N/A"}
+                    N/A
                   </td>
                 ))}
                 {comparisonList.length < 3 && (
@@ -210,7 +217,7 @@ export default function ComparisonBody() {
                     key={index}
                     className="w-1/4 px-4 py-2 border-r border-r-[#E8E8E8]"
                   >
-                    {product.title || "N/A"}
+                    N/A
                   </td>
                 ))}
                 {comparisonList.length < 3 && (
@@ -226,7 +233,7 @@ export default function ComparisonBody() {
                     key={index}
                     className="w-1/4 px-4 py-2 border-r border-r-[#E8E8E8]"
                   >
-                    {product.title || "N/A"}
+                    N/A
                   </td>
                 ))}
                 {comparisonList.length < 3 && (
@@ -242,7 +249,7 @@ export default function ComparisonBody() {
                     key={index}
                     className="w-1/4 px-4 py-2 border-r border-r-[#E8E8E8]"
                   >
-                    {product.title || "N/A"}
+                    N/A
                   </td>
                 ))}
                 {comparisonList.length < 3 && (
@@ -258,7 +265,7 @@ export default function ComparisonBody() {
                     key={index}
                     className="w-1/4 px-4 py-2 border-r border-r-[#E8E8E8]"
                   >
-                    {product.title || "N/A"}
+                    N/A
                   </td>
                 ))}
                 {comparisonList.length < 3 && (
@@ -274,7 +281,7 @@ export default function ComparisonBody() {
                     key={index}
                     className="w-1/4 px-4 py-2 border-r border-r-[#E8E8E8]"
                   >
-                    {product.title || "Out of stock"}
+                    Out of stock
                   </td>
                 ))}
                 {comparisonList.length < 3 && (
@@ -290,7 +297,7 @@ export default function ComparisonBody() {
                     key={index}
                     className="w-1/4 px-4 py-2 border-r border-r-[#E8E8E8]"
                   >
-                    {product.title || "N/A"}
+                    N/A
                   </td>
                 ))}
                 {comparisonList.length < 3 && (
@@ -300,7 +307,6 @@ export default function ComparisonBody() {
               <tr>
                 <td className="w-1/4 px-4 py-2 border-r border-r-[#E8E8E8]"></td>
 
-                {/* Dynamically Render "Add to Cart" Buttons for Each Product */}
                 {comparisonList.map((product, index) => (
                   <td
                     key={index}
