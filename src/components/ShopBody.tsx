@@ -7,12 +7,16 @@ import { useWishlist } from "@/context/WishlistContext";
 import { Product } from "@/types/Product";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function ShopBody() {
   const { removeFromWishlist, isInWishlist, addToWishlist } = useWishlist();
+  const [showAll, setshowAll]=useState(false);
   const { addToCart } = useCart();
   const { addToComparison } = useComparison();
   const { filteredProducts } = useSearch();
+
+  const visibleProducts  = showAll ? filteredProducts :filteredProducts.slice(0,8);
   return (
     <div>
       <div
@@ -59,7 +63,7 @@ export default function ShopBody() {
         {/* Cards */}
         <div className="flex gap-[15px] overflow-x-auto no-scrollbar flex-wrap justify-center w-full">
           {/* Cards for Products */}
-          {filteredProducts.map((product: Product) => (
+          {visibleProducts.map((product: Product) => (
             <div
               className="bg-white group relative overflow-hidden w-[285px] md:w-[285px] lg:w-[285px] "
               key={product._id}
@@ -161,20 +165,18 @@ export default function ShopBody() {
           ))}
         </div>
 
-        <div className="flex md:gap-[38px] gap-[18px]">
-          <button className="md:px-[24px] md:py-[15px] px-[20px] py-[10px] bg-[#B88E2F] md:text-[20px]  text-[15px] font-normal rounded-[10px] text-white w-fit h-fit">
-            1
-          </button>
-          <button className="md:px-[24px] md:py-[15px] px-[20px] py-[10px] bg-[#F9F1E7] md:text-[20px]  text-[15px] font-normal rounded-[10px] text-black w-fit h-fit">
-            2
-          </button>
-          <button className="md:px-[24px] md:py-[15px] px-[20px] py-[10px] bg-[#F9F1E7] md:text-[20px]  text-[15px] font-normal rounded-[10px] text-black w-fit h-fit ">
-            3
-          </button>
-          <button className="md:px-[28px] md:py-[15px] px-[24px] py-[10px] bg-[#F9F1E7] md:text-[20px]  text-[15px] font-normal rounded-[10px] text-black w-fit h-fit">
-            Next
-          </button>
+        {/* Show More Button */}
+        {!showAll && (
+        <div className="w-full text-center mt-5">
+        <Link
+            href="#"
+            onClick={()=> setshowAll(true)}
+            className="text-[16px] font-semibold bg-white py-[12px] px-[72px] text-primary border border-primary"
+          >
+            Show More
+          </Link>
         </div>
+        )}
       </div>
     </div>
   );
