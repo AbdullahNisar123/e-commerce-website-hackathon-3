@@ -120,7 +120,7 @@ export default function CheckOutBody() {
                 <p>Subtotal</p>
               </div>
               {cartItems.map((item) => (
-                <div className="flex justify-between text-[16px]">
+                <div className="flex justify-between text-[16px]" key={item._id}>
                   <p className="font-normal text-[#9F9F9F]">{item.title}</p>
                   <p className="font-light text-black">
                     Rs. {item.price.toFixed(3)}
