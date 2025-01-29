@@ -1,3 +1,4 @@
+"use client"
 import PagesHeader from "@/components/PagesHeader";
 import CartBody from "@/components/CartBody";
 import Feature from "@/components/Feature";

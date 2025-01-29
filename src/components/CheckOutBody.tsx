@@ -1,11 +1,16 @@
+"use client";
+import { useCart } from "@/context/CartContext";
 import Link from "next/link";
 
 export default function CheckOutBody() {
+  const { cartItems, totalPrice, subtotalPrice } = useCart();
   return (
     <div className="md:py-[63px] md:px-[100px] px-[20px] py-[30px]">
       <div className="flex flex-col md:flex-row">
         <div className="md:w-[608px] md:py-[35px] md:px-[74px] text-[16px] text-black font-medium gap-[36px] flex flex-col">
-          <h3 className="text-[36px] font-semibold place-self-center md:place-self-start">Billing details</h3>
+          <h3 className="text-[36px] font-semibold place-self-center md:place-self-start">
+            Billing details
+          </h3>
           <div className="gap-[31px] flex flex-col md:flex-row">
             <label className="flex flex-col gap-[22px]">
               <p>First Name</p>
@@ -98,7 +103,6 @@ export default function CheckOutBody() {
           </div>
           <div>
             <label className="flex flex-col gap-[22px]">
-             
               <input
                 type="text"
                 className="border border-[#9F9F9F] rounded-[10px] md:w-[453px] w-full h-[75px] px-[30px] py-[25px]"
@@ -115,18 +119,24 @@ export default function CheckOutBody() {
                 <p>Product</p>
                 <p>Subtotal</p>
               </div>
-              <div className="flex justify-between text-[16px]">
-                <p className="font-normal text-[#9F9F9F]">Asgaard sofa</p>
-                <p className="font-light text-black">Rs. 250,000.00</p>
-              </div>
+              {cartItems.map((item) => (
+                <div className="flex justify-between text-[16px]">
+                  <p className="font-normal text-[#9F9F9F]">{item.title}</p>
+                  <p className="font-light text-black">
+                    Rs. {item.price.toFixed(3)}
+                  </p>
+                </div>
+              ))}
+
               <div className="flex justify-between text-[16px] text-black ">
                 <p className="font-normal">Subtotal</p>
-                <p className="font-light">Rs. 250,000.00</p>
+                <p className="font-light">Rs. {subtotalPrice.toFixed(3)}</p>
               </div>
+
               <div className="flex justify-between">
                 <p className="font-normal text-[16px] text-black">Total</p>
                 <p className="font-bold text-[24px] text-[#B88E2F]">
-                  Rs. 250,000.00
+                  Rs. {totalPrice.toFixed(3)}
                 </p>
               </div>
             </div>

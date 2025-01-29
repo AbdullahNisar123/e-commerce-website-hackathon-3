@@ -12,6 +12,7 @@ interface CartContextType {
   addToCart: (product: Product) => void;
   removeFromCart: (id: string) => void;
   clearCart: () => void;
+  subtotalPrice: number;
   totalPrice: number;
   totalItems: number;
 }
@@ -44,7 +45,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const removeFromCart = (id: string) => {
     setCartItems((prevCart) => prevCart.filter((item) => item._id !== id));
-    toast.info('Product removed from cart!', {
+    toast.info("Product removed from cart!", {
       position: "top-right",
       autoClose: 1000,
     });
@@ -52,9 +53,16 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const clearCart = () => setCartItems([]);
 
-  const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
-  const totalPrice = cartItems.reduce(
+  const totalItems = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
+  const subtotalPrice = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+  const totalPrice = cartItems.reduce(
+    (sum, item) => sum + item.discountedPrice * item.quantity,
     0
   );
 
@@ -66,6 +74,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
         removeFromCart,
         clearCart,
         totalPrice,
+        subtotalPrice,
         totalItems,
       }}
     >
