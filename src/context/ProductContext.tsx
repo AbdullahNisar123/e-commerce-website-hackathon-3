@@ -9,6 +9,7 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setisLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -31,10 +32,21 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
       } catch (error) {
         console.error("Error fetching products:", error);
       }
+      finally{
+        setisLoading(false);
+      }
     };
 
     fetchProducts();
   }, []);
+
+  if (isLoading){
+    return(
+      <div className="flex justify-center items-center h-96">
+        <p className="text-3xl text-black">Loading products...</p>
+      </div>
+    );
+  }
 
   return (
     <ProductContext.Provider value={products}>
