@@ -14,6 +14,11 @@ export const order = {
       title: "Last Name",
     },
     {
+      name: "country",
+      type: "string",
+      title: "Country",
+    },
+    {
       name: "city",
       type: "string",
       title: "City",
@@ -37,6 +42,22 @@ export const order = {
       name: "email",
       title: "Email",
       type: "string",
+    },
+    {
+      name: "payment",
+      title: "Payment",
+      type: "string",
+    },
+    {
+      name: "companyName",
+      title: "Company Name",
+      type: "string",
+    },
+    {
+      name: "additionalInfo",
+      title: "Additional Info",
+      type: "text",
+
     },
     {
       name: "cartItems",

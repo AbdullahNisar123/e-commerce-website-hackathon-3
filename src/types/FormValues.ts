@@ -5,5 +5,9 @@ export interface FormValues {
   city: string;
   zipCode: string;
   phone: string;
+  country:string;
   email: string;
+  payment: string;
+  additionalInfo?: string;
+  companyName?:string;
 }

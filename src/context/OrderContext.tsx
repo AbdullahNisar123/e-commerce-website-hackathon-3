@@ -10,7 +10,7 @@ import { client } from "@/sanity/lib/client";
 interface OrderContextType {
   formValues: FormValues;
   formErrors: Record<keyof FormValues, boolean>;
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   handlePlaceOrder: () => Promise<void>;
 }
 
@@ -28,6 +28,10 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
     zipCode: "",
     phone: "",
     email: "",
+    country: "",
+    companyName: "",
+    additionalInfo: "",
+    payment: "",
   });
 
   const [formErrors, setFormErrors] = useState<
@@ -39,16 +43,23 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
     city: false,
     zipCode: false,
     phone: false,
+    country: false,
     email: false,
+    companyName: false,
+    additionalInfo: false,
+    payment: false,
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormValues((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
+  
 
   const validateForm = () => {
     const errors = {
@@ -59,6 +70,10 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
       zipCode: !formValues.zipCode.trim(),
       phone: !formValues.phone.trim(),
       email: !formValues.email.trim(),
+      country: !formValues.country.trim(),
+      payment: !formValues.payment.trim(),
+      companyName:false,
+      additionalInfo: false,
     };
     setFormErrors(errors);
     return Object.values(errors).every((error) => !error);
@@ -104,6 +119,10 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
       zipCode: formValues.zipCode,
       phone: formValues.phone,
       email: formValues.email,
+      country: formValues.country,
+      payment: formValues.payment,
+      companyName: formValues.companyName || null,
+      additionalInfo: formValues.additionalInfo || null,
       status: "pending",
       cartItems: cartItems.map((item) => ({
         _key: item._id,
@@ -133,6 +152,10 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
           zipCode: "",
           phone: "",
           email: "",
+          country: "",
+          companyName: "",
+          additionalInfo: "",
+          payment: "",
         });
         router.push("/Shop");
       });

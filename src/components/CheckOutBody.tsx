@@ -4,7 +4,8 @@ import { useOrder } from "@/context/OrderContext";
 import Link from "next/link";
 
 export default function CheckOutBody() {
-  const { formValues, formErrors, handleInputChange, handlePlaceOrder } = useOrder();
+  const { formValues, formErrors, handleInputChange, handlePlaceOrder } =
+    useOrder();
   const { cartItems, totalPrice, subtotalPrice } = useCart();
   return (
     <div className="md:py-[63px] md:px-[100px] px-[20px] py-[30px]">
@@ -46,6 +47,9 @@ export default function CheckOutBody() {
               <p>Company Name (Optional)</p>
               <input
                 type="text"
+                name="companyName"
+                onChange={handleInputChange}
+                value={formValues.companyName}
                 className="border border-[#9F9F9F] rounded-[10px] md:w-[453px] w-full h-[75px]"
               />
             </label>
@@ -54,10 +58,23 @@ export default function CheckOutBody() {
             <label className="flex flex-col gap-[22px]">
               <p>Country / Region</p>
               <div className=" px-[30px] py-[25px] md:w-[453px] w-full h-[75px] border border-[#9F9F9F] rounded-[10px]">
-                <select name="" id="" className="w-full h-full text-[#9F9F9F]">
-                  <option value="SriLanka">Sri Lanka</option>
+                <select
+                  name="country"
+                  value={formValues.country}
+                  onChange={handleInputChange}
+                  className="w-full h-full text-[#9F9F9F]"
+                >
+                  <option value="" disabled>
+                    Select Country
+                  </option>
+                  <option value="Sri Lanka">Sri Lanka</option>
+                  <option value="India">India</option>
+                  <option value="USA">USA</option>
                 </select>
               </div>
+              {formErrors.country && (
+                <p className="text-[#FF0000]">Country is required.</p>
+              )}
             </label>
           </div>
           <div>
@@ -90,7 +107,7 @@ export default function CheckOutBody() {
               )}
             </label>
           </div>
-          <div>
+          {/* <div>
             <label className="flex flex-col gap-[22px]">
               <p>Province</p>
               <div className=" px-[30px] py-[25px] md:w-[453px] w-full h-[75px] border border-[#9F9F9F] rounded-[10px]">
@@ -99,7 +116,7 @@ export default function CheckOutBody() {
                 </select>
               </div>
             </label>
-          </div>
+          </div> */}
           <div>
             <label className="flex flex-col gap-[22px]">
               <p>ZIP code</p>
@@ -149,6 +166,9 @@ export default function CheckOutBody() {
             <label className="flex flex-col gap-[22px]">
               <input
                 type="text"
+                name="additionalInfo"
+                onChange={handleInputChange}
+                value={formValues.additionalInfo}
                 className="border border-[#9F9F9F] rounded-[10px] md:w-[453px] w-full h-[75px] px-[30px] py-[25px]"
                 placeholder="Additional information"
               />
@@ -204,14 +224,32 @@ export default function CheckOutBody() {
                 </label>
 
                 <div className="gap-[11px] flex flex-col text-[16px] text-[#9F9F9F] font-medium">
-                  <label className="flex  gap-[15px]">
-                    <input type="radio" name="payment" />
+                  <label className="flex gap-[15px]">
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="Direct Bank Transfer"
+                      checked={formValues.payment === "Direct Bank Transfer"}
+                      onChange={handleInputChange}
+                    />
                     <p>Direct Bank Transfer</p>
                   </label>
-                  <label className="flex  gap-[15px]">
-                    <input type="radio" name="payment" />
+                  {formValues.payment === "Direct Bank Transfer" && (
+                     <p className="text-[#555]">Add details of bank</p>
+                  )}
+                  <label className="flex gap-[15px]">
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="Cash On Delivery"
+                      checked={formValues.payment === "Cash On Delivery"}
+                      onChange={handleInputChange}
+                    />
                     <p>Cash On Delivery</p>
                   </label>
+                  {formErrors.payment && (
+                    <p className="text-[#FF0000]">Payment is required.</p>
+                  )}
                 </div>
                 <div className="text-black text-[16px] font-light">
                   <p>
