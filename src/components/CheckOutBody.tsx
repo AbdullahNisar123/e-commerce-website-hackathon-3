@@ -1,8 +1,10 @@
 "use client";
 import { useCart } from "@/context/CartContext";
+import { useOrder } from "@/context/OrderContext";
 import Link from "next/link";
 
 export default function CheckOutBody() {
+  const { formValues, formErrors, handleInputChange, handlePlaceOrder } = useOrder();
   const { cartItems, totalPrice, subtotalPrice } = useCart();
   return (
     <div className="md:py-[63px] md:px-[100px] px-[20px] py-[30px]">
@@ -16,15 +18,27 @@ export default function CheckOutBody() {
               <p>First Name</p>
               <input
                 type="text"
+                name="firstName"
                 className="border border-[#9F9F9F] rounded-[10px] md:w-[211px] w-full h-[75px]"
+                value={formValues.firstName}
+                onChange={handleInputChange}
               />
+              {formErrors.firstName && (
+                <p className="text-[#FF0000]">First Name is required.</p>
+              )}
             </label>
             <label className="flex flex-col gap-[22px]">
               <p>Last Name</p>
               <input
                 type="text"
+                name="lastName"
                 className="border border-[#9F9F9F] rounded-[10px] md:w-[211px] w-full h-[75px]"
+                value={formValues.lastName}
+                onChange={handleInputChange}
               />
+              {formErrors.lastName && (
+                <p className="text-[#FF0000]">Last Name is required.</p>
+              )}
             </label>
           </div>
           <div>
@@ -51,8 +65,14 @@ export default function CheckOutBody() {
               <p>Street address</p>
               <input
                 type="text"
+                name="address"
                 className="border border-[#9F9F9F] rounded-[10px] md:w-[453px] w-full h-[75px]"
+                value={formValues.address}
+                onChange={handleInputChange}
               />
+              {formErrors.address && (
+                <p className="text-[#FF0000]">Address is required.</p>
+              )}
             </label>
           </div>
           <div>
@@ -60,8 +80,14 @@ export default function CheckOutBody() {
               <p>Town / City</p>
               <input
                 type="text"
+                name="city"
                 className="border border-[#9F9F9F] rounded-[10px] md:w-[453px] w-full h-[75px]"
+                value={formValues.city}
+                onChange={handleInputChange}
               />
+              {formErrors.city && (
+                <p className="text-[#FF0000]">City is required.</p>
+              )}
             </label>
           </div>
           <div>
@@ -79,8 +105,14 @@ export default function CheckOutBody() {
               <p>ZIP code</p>
               <input
                 type="text"
+                name="zipCode"
                 className="border border-[#9F9F9F] rounded-[10px] md:w-[453px] w-full h-[75px]"
+                value={formValues.zipCode}
+                onChange={handleInputChange}
               />
+              {formErrors.zipCode && (
+                <p className="text-[#FF0000]">Zip Code is required.</p>
+              )}
             </label>
           </div>
           <div>
@@ -88,8 +120,14 @@ export default function CheckOutBody() {
               <p>Phone</p>
               <input
                 type="text"
+                name="phone"
                 className="border border-[#9F9F9F] rounded-[10px] md:w-[453px] w-full h-[75px]"
+                value={formValues.phone}
+                onChange={handleInputChange}
               />
+              {formErrors.phone && (
+                <p className="text-[#FF0000]">Phone number is required.</p>
+              )}
             </label>
           </div>
           <div>
@@ -97,8 +135,14 @@ export default function CheckOutBody() {
               <p>Email address</p>
               <input
                 type="text"
+                name="email"
                 className="border border-[#9F9F9F] rounded-[10px] md:w-[453px] w-full h-[75px]"
+                value={formValues.email}
+                onChange={handleInputChange}
               />
+              {formErrors.email && (
+                <p className="text-[#FF0000]">Email address is required.</p>
+              )}
             </label>
           </div>
           <div>
@@ -120,7 +164,10 @@ export default function CheckOutBody() {
                 <p>Subtotal</p>
               </div>
               {cartItems.map((item) => (
-                <div className="flex justify-between text-[16px]" key={item._id}>
+                <div
+                  className="flex justify-between text-[16px]"
+                  key={item._id}
+                >
                   <p className="font-normal text-[#9F9F9F]">{item.title}</p>
                   <p className="font-light text-black">
                     Rs. {item.price.toFixed(3)}
@@ -172,7 +219,6 @@ export default function CheckOutBody() {
                     throughout this website, to manage access to your account,
                     and for other purposes described in our{" "}
                     <Link href="#" className="font-bold">
-                      {" "}
                       privacy policy.
                     </Link>
                   </p>
@@ -180,7 +226,10 @@ export default function CheckOutBody() {
               </div>
             </div>
           </div>
-          <button className="w-fit h-fit py-[17px] px-[102px] border border-black rounded-[15px]">
+          <button
+            onClick={handlePlaceOrder}
+            className="w-fit h-fit py-[17px] px-[102px] border border-black rounded-[15px]"
+          >
             Place Order
           </button>
         </div>

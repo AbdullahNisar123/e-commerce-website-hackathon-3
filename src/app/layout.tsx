@@ -9,6 +9,7 @@ import { SearchProvider } from "@/context/SearchContext";
 import { ToastContainer } from "react-toastify";
 import { WishlistProvider } from "@/context/WishlistContext";
 import { ComparisonProvider } from "@/context/ComparisonContext";
+import { OrderProvider } from "@/context/OrderContext";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -40,10 +41,12 @@ export default function RootLayout({
             <SearchProvider>
               <WishlistProvider>
                 <CartProvider>
-                  <ToastContainer />
-                  <NavBar />
-                  {children}
-                  <Footer />
+                  <OrderProvider>
+                    <ToastContainer />
+                    <NavBar />
+                    {children}
+                    <Footer />
+                  </OrderProvider>
                 </CartProvider>
               </WishlistProvider>
             </SearchProvider>

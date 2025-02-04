@@ -17,7 +17,8 @@
     "react-dom": "^18",
     "react-toastify": "^11.0.3",
     "sanity": "^3.70.0",
-    "styled-components": "^6.1.14"
+    "styled-components": "^6.1.14",
+    "sweetalert2": "^11.15.10"
   },
   "devDependencies": {
     "@iconify/react": "^5.2.0",

@@ -1,10 +1,12 @@
-import { createClient } from 'next-sanity'
-
-import { apiVersion, dataset, projectId } from '../env'
-
+import { createClient } from 'next-sanity';
+import { apiVersion, dataset, projectId,SANITYTOKEN } from '../env';
 export const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: true, // Set to false if statically generating pages, using ISR or tag-based revalidation
-})
+  useCdn: true, 
+  token: SANITYTOKEN, 
+});
+
+
+console.log('SANITYTOKEN from client:',SANITYTOKEN); // Add this line temporarily
