@@ -10,7 +10,9 @@ import { client } from "@/sanity/lib/client";
 interface OrderContextType {
   formValues: FormValues;
   formErrors: Record<keyof FormValues, boolean>;
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  handleInputChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
   handlePlaceOrder: () => Promise<void>;
 }
 
@@ -43,12 +45,13 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
     city: false,
     zipCode: false,
     phone: false,
-    country: false,
     email: false,
+    country: false,
+    payment: false,
     companyName: false,
     additionalInfo: false,
-    payment: false,
   });
+
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -58,8 +61,9 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
       ...prev,
       [name]: value,
     }));
+
+    
   };
-  
 
   const validateForm = () => {
     const errors = {
@@ -72,14 +76,17 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
       email: !formValues.email.trim(),
       country: !formValues.country.trim(),
       payment: !formValues.payment.trim(),
-      companyName:false,
+      companyName: false,
       additionalInfo: false,
     };
     setFormErrors(errors);
     return Object.values(errors).every((error) => !error);
   };
 
+  
+
   const handlePlaceOrder = async () => {
+
     if (cartItems.length < 1) {
       Swal.fire(
         "Error",
@@ -92,52 +99,38 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
     if (!validateForm()) {
       Swal.fire(
         "Error",
-        "Please fill in all the fields before proceeding.",
+        "Please fill in all fields before proceeding.",
         "error"
       );
       return;
     }
 
-    const result = await Swal.fire({
-      title: "Processing your order...",
-      text: "Please wait a moment.",
-      icon: "info",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Proceed",
-    });
-
-    if (!result.isConfirmed) return;
-
-    const orderData = {
-      _type: "order",
-      firstName: formValues.firstName,
-      lastName: formValues.lastName,
-      address: formValues.address,
-      city: formValues.city,
-      zipCode: formValues.zipCode,
-      phone: formValues.phone,
-      email: formValues.email,
-      country: formValues.country,
-      payment: formValues.payment,
-      companyName: formValues.companyName || null,
-      additionalInfo: formValues.additionalInfo || null,
-      status: "pending",
-      cartItems: cartItems.map((item) => ({
-        _key: item._id,
-        product: {
-          _type: "reference",
-          _ref: item._id,
-        },
-        quantity: item.quantity,
-      })),
-      totalPrice: totalPrice,
-      orderDate: new Date().toISOString(),
-    };
-
     try {
-      await client.create(orderData);
+      await client.create({
+        _type: "order",
+        firstName: formValues.firstName,
+        lastName: formValues.lastName,
+        address: formValues.address,
+        city: formValues.city,
+        zipCode: formValues.zipCode,
+        phone: formValues.phone,
+        email: formValues.email,
+        country: formValues.country,
+        payment: formValues.payment,
+        companyName: formValues.companyName || null,
+        additionalInfo: formValues.additionalInfo || null,
+        status: "pending",
+        cartItems: cartItems.map((item) => ({
+          _key: item._id,
+          product: { _type: "reference", _ref: item._id },
+          quantity: item.quantity,
+        })),
+        totalPrice: totalPrice,
+        orderDate: new Date().toISOString(),
+      });
+
+      console.log("🎉 Order placed successfully!");
+
       Swal.fire(
         "Success",
         "Your order has been successfully placed.",
@@ -160,7 +153,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
         router.push("/Shop");
       });
     } catch (error) {
-      console.error("Error creating order:", error);
+      console.error("❌ Error creating order:", error);
       Swal.fire(
         "Error",
         "Error creating order. Please try again later.",
@@ -171,7 +164,12 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <OrderContext.Provider
-      value={{ formValues, formErrors, handleInputChange, handlePlaceOrder }}
+      value={{
+        formValues,
+        formErrors,
+        handleInputChange,
+        handlePlaceOrder,
+      }}
     >
       {children}
     </OrderContext.Provider>

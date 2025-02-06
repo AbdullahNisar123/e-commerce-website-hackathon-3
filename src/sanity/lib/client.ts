@@ -9,4 +9,3 @@ export const client = createClient({
 });
 
 
-console.log('SANITYTOKEN from client:',SANITYTOKEN); // Add this line temporarily

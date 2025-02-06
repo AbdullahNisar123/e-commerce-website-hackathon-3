@@ -2,8 +2,10 @@
 import { useCart } from "@/context/CartContext";
 import { useOrder } from "@/context/OrderContext";
 import Link from "next/link";
+import CartPayment from "./CartPayment";
 
 export default function CheckOutBody() {
+  
   const { formValues, formErrors, handleInputChange, handlePlaceOrder } =
     useOrder();
   const { cartItems, totalPrice, subtotalPrice } = useCart();
@@ -235,7 +237,8 @@ export default function CheckOutBody() {
                     <p>Direct Bank Transfer</p>
                   </label>
                   {formValues.payment === "Direct Bank Transfer" && (
-                     <p className="text-[#555]">Add details of bank</p>
+                    
+                     <CartPayment />
                   )}
                   <label className="flex gap-[15px]">
                     <input
