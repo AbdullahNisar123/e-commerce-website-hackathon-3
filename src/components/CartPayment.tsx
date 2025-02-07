@@ -5,6 +5,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import convertToSubcurrency from "../../lib/convertToSubcurrency";
 import PaymentForm from "./PaymentForm";
 import { useCart } from "@/context/CartContext";
+import { useOrder } from "@/context/OrderContext";
 
 if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
   throw new Error("NEXT_PUBLIC_STRIPE_PUBLIC_KEY is not defined");
@@ -12,8 +13,10 @@ if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 export default function Home() {
-  const {totalPrice} = useCart()
-
+  const {totalPrice} = useCart();
+  const {formValues} = useOrder();
+  
+  
   return (
     
 
@@ -25,7 +28,7 @@ export default function Home() {
           currency: "usd",
         }}
       >
-        <PaymentForm totalPrice={totalPrice} />
+        <PaymentForm totalPrice={totalPrice } formValues={formValues}/>
       </Elements>
   );
 }

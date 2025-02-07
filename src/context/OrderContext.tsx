@@ -10,10 +10,10 @@ import { client } from "@/sanity/lib/client";
 interface OrderContextType {
   formValues: FormValues;
   formErrors: Record<keyof FormValues, boolean>;
-  handleInputChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => void;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   handlePlaceOrder: () => Promise<void>;
+  createSanityOrder: () => Promise<void>; // ✅ Add this
+  loading: boolean;
 }
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined);
@@ -83,28 +83,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
     return Object.values(errors).every((error) => !error);
   };
 
-  
-
-  const handlePlaceOrder = async () => {
-
-    if (cartItems.length < 1) {
-      Swal.fire(
-        "Error",
-        "Your cart is empty. Add at least one item before placing an order.",
-        "error"
-      );
-      return;
-    }
-
-    if (!validateForm()) {
-      Swal.fire(
-        "Error",
-        "Please fill in all fields before proceeding.",
-        "error"
-      );
-      return;
-    }
-
+  const createSanityOrder = async () => {
     try {
       await client.create({
         _type: "order",
@@ -128,14 +107,8 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
         totalPrice: totalPrice,
         orderDate: new Date().toISOString(),
       });
-
-      console.log("🎉 Order placed successfully!");
-
-      Swal.fire(
-        "Success",
-        "Your order has been successfully placed.",
-        "success"
-      ).then(() => {
+  
+      Swal.fire("Success", "Your order has been placed.", "success").then(() => {
         clearCart();
         setFormValues({
           firstName: "",
@@ -154,14 +127,47 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
       });
     } catch (error) {
       console.error("❌ Error creating order:", error);
+      Swal.fire("Error", "Error creating order. Please try again later.", "error");
+    }
+  };  
+      
+const [loading, setLoading] = useState(false);
+  const handlePlaceOrder = async () => {
+    setLoading(true)
+    if (cartItems.length < 1) {
       Swal.fire(
         "Error",
-        "Error creating order. Please try again later.",
+        "Your cart is empty. Add at least one item before placing an order.",
         "error"
       );
+      setLoading(false)
+      return;
     }
+  
+    if (!validateForm()) {
+      Swal.fire(
+        "Error",
+        "Please fill in all fields before proceeding.",
+        "error"
+      );
+      setLoading(false)
+      return;
+    }
+    if (formValues.payment === "Direct Bank Transfer") {
+      // ✅ Redirect to the Stripe form page (`/cartpayment`)
+      router.push("/Cart-Payment");
+      setLoading(true)
+      return;
+    }
+  
+    // ✅ If "Cash on Delivery", store order immediately in Sanity
+    await createSanityOrder();
+    setLoading(false)
   };
 
+  
+  
+  
   return (
     <OrderContext.Provider
       value={{
@@ -169,6 +175,8 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
         formErrors,
         handleInputChange,
         handlePlaceOrder,
+        createSanityOrder, // ✅ Add this to the OrderContextType
+        loading,
       }}
     >
       {children}

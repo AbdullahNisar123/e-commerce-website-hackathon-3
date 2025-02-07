@@ -6,7 +6,7 @@ import CartPayment from "./CartPayment";
 
 export default function CheckOutBody() {
   
-  const { formValues, formErrors, handleInputChange, handlePlaceOrder } =
+  const { formValues, formErrors, handleInputChange, handlePlaceOrder,loading } =
     useOrder();
   const { cartItems, totalPrice, subtotalPrice } = useCart();
   return (
@@ -236,10 +236,10 @@ export default function CheckOutBody() {
                     />
                     <p>Direct Bank Transfer</p>
                   </label>
-                  {formValues.payment === "Direct Bank Transfer" && (
+                  {/* {formValues.payment === "Direct Bank Transfer" && (
                     
                      <CartPayment />
-                  )}
+                  )} */}
                   <label className="flex gap-[15px]">
                     <input
                       type="radio"
@@ -271,7 +271,7 @@ export default function CheckOutBody() {
             onClick={handlePlaceOrder}
             className="w-fit h-fit py-[17px] px-[102px] border border-black rounded-[15px]"
           >
-            Place Order
+            {loading ? "Processing..." : "Place Order"}
           </button>
         </div>
       </div>
