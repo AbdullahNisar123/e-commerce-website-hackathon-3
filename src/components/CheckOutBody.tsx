@@ -2,7 +2,6 @@
 import { useCart } from "@/context/CartContext";
 import { useOrder } from "@/context/OrderContext";
 import Link from "next/link";
-import CartPayment from "./CartPayment";
 
 export default function CheckOutBody() {
   
@@ -236,7 +235,6 @@ export default function CheckOutBody() {
                     />
                     <p>Direct Bank Transfer</p>
                   </label>
-                 
                   <label className="flex gap-[15px]">
                     <input
                       type="radio"

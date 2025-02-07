@@ -10,7 +10,7 @@ import convertToSubcurrency from "../../lib/convertToSubcurrency";
 import { useOrder } from "@/context/OrderContext";
 import { useRouter } from "next/navigation";
 
-const PaymentForm = ({ totalPrice, formValues }: { totalPrice: number; formValues: any }) => {
+const PaymentForm = ({ totalPrice }: { totalPrice: number }) => {
   const stripe = useStripe();
   const elements = useElements();
   const router = useRouter();
