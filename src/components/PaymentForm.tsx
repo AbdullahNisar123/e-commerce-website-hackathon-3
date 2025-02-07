@@ -62,7 +62,7 @@ const PaymentForm = ({ totalPrice }: { totalPrice: number }) => {
 
     if (paymentIntent && paymentIntent.status === "succeeded") {
       await createSanityOrder();
-      router.push("/payment-success");
+      router.push("/Payment-Success");
     }
 
     setLoading(false);

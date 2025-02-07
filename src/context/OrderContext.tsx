@@ -158,7 +158,11 @@ const [loading, setLoading] = useState(false);
       setLoading(true)
       return;
     }
-  
+    if (formValues.payment === "Cash On Delivery") {
+      router.push("Payment-Success");
+      setLoading(true)
+    }
+
     await createSanityOrder();
     setLoading(false)
   };

@@ -1,18 +1,14 @@
 "use client";
 
 import { useEffect } from "react";
-import { useOrder } from "@/context/OrderContext";
 import { useRouter } from "next/navigation";
 import PagesHeader from "@/components/PagesHeader";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
 const PaymentSuccess = () => {
-  const { createSanityOrder } = useOrder();
   const router = useRouter();
 
-  useEffect(() => {
-    createSanityOrder(); 
-  }, []);
+
 
 
   useEffect(() => {
