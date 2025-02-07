@@ -236,10 +236,7 @@ export default function CheckOutBody() {
                     />
                     <p>Direct Bank Transfer</p>
                   </label>
-                  {/* {formValues.payment === "Direct Bank Transfer" && (
-                    
-                     <CartPayment />
-                  )} */}
+                 
                   <label className="flex gap-[15px]">
                     <input
                       type="radio"

@@ -12,7 +12,7 @@ interface OrderContextType {
   formErrors: Record<keyof FormValues, boolean>;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   handlePlaceOrder: () => Promise<void>;
-  createSanityOrder: () => Promise<void>; // ✅ Add this
+  createSanityOrder: () => Promise<void>; 
   loading: boolean;
 }
 
@@ -123,7 +123,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
           additionalInfo: "",
           payment: "",
         });
-        router.push("/Shop");
+        // router.push("/Shop");
       });
     } catch (error) {
       console.error("❌ Error creating order:", error);
@@ -154,13 +154,11 @@ const [loading, setLoading] = useState(false);
       return;
     }
     if (formValues.payment === "Direct Bank Transfer") {
-      // ✅ Redirect to the Stripe form page (`/cartpayment`)
       router.push("/Cart-Payment");
       setLoading(true)
       return;
     }
   
-    // ✅ If "Cash on Delivery", store order immediately in Sanity
     await createSanityOrder();
     setLoading(false)
   };
@@ -175,7 +173,7 @@ const [loading, setLoading] = useState(false);
         formErrors,
         handleInputChange,
         handlePlaceOrder,
-        createSanityOrder, // ✅ Add this to the OrderContextType
+        createSanityOrder,
         loading,
       }}
     >

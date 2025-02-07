@@ -14,7 +14,7 @@ const PaymentForm = ({ totalPrice, formValues }: { totalPrice: number; formValue
   const stripe = useStripe();
   const elements = useElements();
   const router = useRouter();
-  const { createSanityOrder } = useOrder(); // Get function to save order
+  const { createSanityOrder } = useOrder(); 
 
   const [errorMessage, setErrorMessage] = useState<string>();
   const [clientSecret, setClientSecret] = useState("");
@@ -61,7 +61,6 @@ const PaymentForm = ({ totalPrice, formValues }: { totalPrice: number; formValue
     }
 
     if (paymentIntent && paymentIntent.status === "succeeded") {
-      // ✅ Payment was successful - Now save the order in Sanity
       await createSanityOrder();
       router.push("/payment-success");
     }
